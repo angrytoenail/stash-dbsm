@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["DOM", "ES2020"],
+    "jsx": "react-jsx",
+    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "types": [
+      "vite/client",
+      "react-bootstrap",
+      "@types/react",
+      "@types/react-dom",
+      "@types/mousetrap",
+      "@fortawesome/fontawesome-svg-core"
+    ],
+    "paths": {
+      "@*": ["./src/*"],
+      "@sql/*": ["./sql/*"]
+    },
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "typeAcquisition": { "enable": true },
+  "include": ["./src"]
+}

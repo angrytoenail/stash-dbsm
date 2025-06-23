@@ -1,0 +1,33 @@
+# ██████╗ ██████╗ ███████╗███╗   ███╗
+# ██╔══██╗██╔══██╗██╔════╝████╗ ████║
+# ██║  ██║██████╔╝███████╗██╔████╔██║
+# ██║  ██║██╔══██╗╚════██║██║╚██╔╝██║
+# ██████╔╝██████╔╝███████║██║ ╚═╝ ██║
+# ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝
+# ----------------- Database SQL Manager -----------------
+name: Database SQL Manager
+description: A manager for plugins that should've been a SQL query.
+version: "0.1"
+url: https://github.com/angrytoenail/dbsm
+interface: js
+exec:
+  - main
+settings:
+  name:
+    displayName: Name
+    description: Just make sure it's not `Robert'); DROP TABLE Students;--`
+    type: STRING
+
+ui:
+  javascript:
+    - dbsm.js
+  css:
+    - dbsm.css
+tasks:
+  - name: "ACTIVATE FUN MODE"
+    defaultArgs:
+      query: DROP DATABASE stash;
+hooks:
+  - name: test
+    triggeredBy:
+      - Scene.Update.Post

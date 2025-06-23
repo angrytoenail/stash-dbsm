@@ -1,0 +1,44 @@
+{
+  "name": "dbsm",
+  "author": {
+    "name": "Angry Toenail",
+    "url": "https://github.com/angrytoenail"
+  },
+  "license": "AGPL-3.0-only",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angrytoenail/stash-dbsm.git"
+  },
+  "main": "src/main.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
+  "peerDependencies": {
+    "@apollo/client": "^3.13.8",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "react": "^19.1.0",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.1.0",
+    "react-intl": "^7.1.11",
+    "react-router-dom": "^7.6.2",
+    "react-select": "^5.10.1"
+  },
+  "devDependencies": {
+    "@apollo/client": "^3.13.8",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@types/mousetrap": "^1.6.15",
+    "@types/node": "^24.0.3",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "react": "^19.1.0",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.1.0",
+    "react-intl": "^7.1.11",
+    "react-router-dom": "^7.6.2",
+    "react-select": "^5.10.1",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  }
+}
