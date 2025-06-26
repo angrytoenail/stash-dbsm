@@ -1,8 +1,7 @@
-import sql from "@sql/example.sql?base64";
-import api, { useQuerySQLMutation } from "@/api.ts";
+import sql from "@sql/example.sql";
+import api, { React, useQuerySQLMutation } from "@/api.ts";
 import "./style.css";
 
-const { React } = PluginApi;
 const { useEffect, useState } = React;
 
 api.patch.instead(

@@ -2,11 +2,11 @@ import { Buffer } from "node:buffer";
 import type { Plugin, TransformResult } from "vite";
 import { defineConfig, normalizePath } from "vite";
 
-function base64AssetPlugin(): Plugin {
+function importSQLPlugin(): Plugin {
   return {
-    name: "vite-base64-asset",
+    name: "vite-plugin-encode-sql",
     transform(code: string, id: string): TransformResult | null {
-      if (!id.endsWith("?base64")) {
+      if (!id.endsWith(".sql")) {
         return null;
       }
       const base64 = Buffer.from(code, "utf-8").toString("base64");
@@ -22,7 +22,7 @@ export default defineConfig({
       "@sql": normalizePath("./sql"),
     },
   },
-  plugins: [base64AssetPlugin()],
+  plugins: [importSQLPlugin()],
   build: {
     assetsDir: ".",
     rollupOptions: {
