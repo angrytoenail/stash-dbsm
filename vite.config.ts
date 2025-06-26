@@ -1,8 +1,8 @@
 import { Buffer } from "node:buffer";
+import { resolve } from "node:path";
 import type { Plugin, TransformResult } from "vite";
 import { defineConfig, normalizePath } from "vite";
-import stashPluginConfigGenerator from "./helpers/rollup-plugin-stash-config-generator";
-import pkg from "./package.json" with { type: "json" };
+import stashConfigGenerator from "./helpers/rollup-plugin-stash-config-generator";
 
 function importSQLPlugin(): Plugin {
   return {
@@ -24,7 +24,7 @@ export default defineConfig({
       "@sql": normalizePath("./sql"),
     },
   },
-  plugins: [importSQLPlugin()],
+  plugins: [importSQLPlugin(), stashConfigGenerator()],
   build: {
     assetsDir: ".",
     rollupOptions: {
@@ -38,13 +38,13 @@ export default defineConfig({
           "api.libraries.GQL": "GQL",
         },
       },
-      plugins: [stashPluginConfigGenerator({ pkg })],
     },
     lib: {
-      entry: ["src/main.tsx"],
-      name: "dbsm",
+      entry: resolve(__dirname, "src/main.tsx"),
+      name: "DBSM",
       formats: ["iife"],
-      fileName: () => "dbsm.js",
+      fileName: (format, entryName) => entryName.concat(".js"),
+      cssFileName: "style",
     },
     minify: false,
   },
