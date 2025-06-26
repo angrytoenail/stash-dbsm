@@ -1,6 +1,8 @@
 import { Buffer } from "node:buffer";
 import type { Plugin, TransformResult } from "vite";
 import { defineConfig, normalizePath } from "vite";
+import stashPluginConfigGenerator from "./helpers/rollup-plugin-stash-config-generator";
+import pkg from "./package.json" with { type: "json" };
 
 function importSQLPlugin(): Plugin {
   return {
@@ -36,6 +38,7 @@ export default defineConfig({
           "api.libraries.GQL": "GQL",
         },
       },
+      plugins: [stashPluginConfigGenerator({ pkg })],
     },
     lib: {
       entry: ["src/main.tsx"],
