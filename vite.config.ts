@@ -25,11 +25,23 @@ export default defineConfig({
   plugins: [base64AssetPlugin()],
   build: {
     assetsDir: ".",
+    rollupOptions: {
+      external: ["api", "React", "Apollo", "GQL", "gql"],
+      output: {
+        globals: {
+          "window.PluginApi": "api",
+          "api.React": "React",
+          "api.Apollo": "Apollo",
+          "Apollo.gql": "gql",
+          "api.libraries.GQL": "GQL",
+        },
+      },
+    },
     lib: {
-      entry: ["src/main.ts"],
+      entry: ["src/main.tsx"],
       name: "dbsm",
-      fileName: () => "dbsm.js",
       formats: ["iife"],
+      fileName: () => "dbsm.js",
     },
     minify: false,
   },

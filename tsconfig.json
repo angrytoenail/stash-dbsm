@@ -1,41 +1,44 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "lib": ["DOM", "ES2020"],
-    "jsx": "react-jsx",
-    "useDefineForClassFields": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
+    "jsx": "react",
     "types": [
       "vite/client",
       "react-bootstrap",
       "@types/react",
       "@types/react-dom",
-      "@types/mousetrap",
-      "@fortawesome/fontawesome-svg-core"
+      "@fortawesome/fontawesome-svg-core",
+      "@fortawesome/free-solid-svg-icons",
+      "@apollo/client/react/types/types"
     ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "paths": {
-      "@*": ["./src/*"],
-      "@sql/*": ["./sql/*"]
+      "@sql/": ["./sql/"],
+      "@/*": ["./src/*"]
     },
 
     /* Bundler mode */
+    "target": "ES2019",
+    "module": "ESNext",
     "moduleResolution": "bundler",
+    "moduleDetection": "auto",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
+    "useDefineForClassFields": true,
     "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
     "noEmit": true,
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "forceConsistentCasingInFileNames": true
   },
   "typeAcquisition": { "enable": true },
-  "include": ["./src"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
