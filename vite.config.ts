@@ -40,7 +40,7 @@ export default defineConfig({
       },
     },
     lib: {
-      entry: resolve(__dirname, "src/main.tsx"),
+      entry: resolve(__dirname, "src/main.ts"),
       name: "DBSM",
       formats: ["iife"],
       fileName: (format, entryName) => entryName.concat(".js"),

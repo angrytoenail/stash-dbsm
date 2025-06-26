@@ -1,14 +1,12 @@
 import type { MutationHookOptions } from "@apollo/client";
 
 const api = window.PluginApi;
-const { React, libraries, GQL } = api;
-const Apollo = libraries.Apollo;
 
-export { Apollo, GQL, React };
+export const { React, GQL } = api;
+export const { Apollo, Bootstrap } = api.libraries;
 export default api;
 
 const { gql, useMutation } = Apollo;
-const defaultOptions = {};
 
 export const QuerySQLDocument = gql`
   mutation QuerySQL($sql: String!, $args: [Any]) {
@@ -20,12 +18,8 @@ export const QuerySQLDocument = gql`
 `;
 
 export function useQuerySQLMutation(
-  baseOptions?: MutationHookOptions<
-    QuerySQLMutation,
-    QuerySQLMutationVariables
-  >,
+  options?: MutationHookOptions<QuerySQLMutation, QuerySQLMutationVariables>,
 ) {
-  const options = { ...defaultOptions, ...baseOptions };
   return useMutation<QuerySQLMutation, QuerySQLMutationVariables>(
     QuerySQLDocument,
     options,

@@ -1,6 +1,5 @@
 import sql from "@sql/example.sql";
 import api, { React, useQuerySQLMutation } from "@/api.ts";
-import "./style.css";
 
 const { useEffect, useState } = React;
 
