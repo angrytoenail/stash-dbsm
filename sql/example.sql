@@ -1,4 +1,6 @@
 select
   *
 from
-  sqlite_master;
+  sqlite_master
+limit
+  10;
