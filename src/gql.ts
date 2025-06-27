@@ -1,12 +1,4 @@
-import type { MutationHookOptions } from "@apollo/client";
-
-const api = window.PluginApi;
-
-export const { React, GQL } = api;
-export const { Apollo, Bootstrap } = api.libraries;
-export default api;
-
-const { gql, useMutation } = Apollo;
+import { type MutationHookOptions, gql, useMutation } from "@apollo/client";
 
 export const QuerySQLDocument = gql`
   mutation QuerySQL($sql: String!, $args: [Any]) {

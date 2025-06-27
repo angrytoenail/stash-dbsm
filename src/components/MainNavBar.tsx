@@ -1,12 +1,12 @@
-import api, { React, Bootstrap } from "@/api.ts";
+import { Button } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import { faDatabase } from "@fortawesome/free-solid-svg-icons";
 
-api.patch.before(
+const { Icon } = PluginApi.components;
+
+PluginApi.patch.before(
   "MainNavBar.UtilityItems",
   function (props: Record<string, any>) {
-    const { Icon } = api.components;
-    const { Button } = Bootstrap;
-    const { faDatabase } = api.libraries.FontAwesomeSolid;
-    const { NavLink } = api.libraries.ReactRouterDOM;
     return [
       {
         children: (

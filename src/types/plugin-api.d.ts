@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 declare namespace PluginApi {
+  import type { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   const React: typeof import("react");
   const ReactDOM: typeof import("react-dom");
   namespace GQL {
@@ -977,7 +978,6 @@ declare namespace PluginApi {
     const FontAwesomeSolid: typeof import("@fortawesome/free-solid-svg-icons");
     const Intl: typeof import("react-intl");
     const Mousetrap: typeof import("mousetrap");
-    const videojs: typeof import("video.js");
 
     // @ts-expect-error
     import { MousetrapStatic } from "mousetrap";
@@ -1018,7 +1018,7 @@ declare namespace PluginApi {
     HoverPopover: React.FC<any>;
     TagLink: React.FC<any>;
     LoadingIndicator: React.FC<any>;
-    Icon: React.FC<any>;
+    Icon: FontAwesomeIcon;
     "MainNavBar.MenuItems": React.FC<any>;
     "MainNavBar.UtilityItems": React.FC<any>;
     PerformerSelect: React.FC<any>;

@@ -7,6 +7,6 @@ declare module "*.sql" {
 
 declare global {
   interface Window {
-    PluginApi: IPluginApi;
+    PluginApi: typeof PluginApi;
   }
 }

@@ -1,29 +1,21 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "types": [
-      "vite/client",
-      "react-bootstrap",
-      "@types/react",
-      "@types/react-dom",
-      "@fortawesome/fontawesome-svg-core",
-      "@fortawesome/free-solid-svg-icons",
-      "@apollo/client/react/types/types"
-    ],
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "preserve",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "paths": {
       "@sql/": ["./sql/"],
       "@/*": ["./src/*"]
     },
 
     /* Bundler mode */
-    "target": "ES2019",
-    "module": "ESNext",
+    "target": "ES6",
+    "module": "ES2020",
     "moduleResolution": "bundler",
-    "moduleDetection": "auto",
+    "moduleDetection": "force",
     "esModuleInterop": true,
     "isolatedModules": true,
     "allowJs": true,
+    "allowUmdGlobalAccess": true,
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "useDefineForClassFields": true,
@@ -38,7 +30,5 @@
     "noUncheckedSideEffectImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "typeAcquisition": { "enable": true },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"]
 }

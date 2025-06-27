@@ -1,13 +1,12 @@
+import React from "react";
+import { useQuerySQLMutation } from "@/client";
 import sql from "@sql/example.sql";
-import api, { React, useQuerySQLMutation } from "@/api.ts";
 
-const { useEffect, useState } = React;
-
-api.patch.instead(
+PluginApi.patch.instead(
   "FrontPage",
   function (props: object, _: object, original: any) {
-    const [columns, setColumns] = useState<string[]>([]);
-    const [rows, setRows] = useState<any[][]>([]);
+    const [columns, setColumns] = React.useState<string[]>([]);
+    const [rows, setRows] = React.useState<any[][]>([]);
 
     const [querySQL, { loading, error }] = useQuerySQLMutation({
       onCompleted: (data) => {
@@ -18,7 +17,7 @@ api.patch.instead(
       },
     });
 
-    useEffect(() => {
+    React.useEffect(() => {
       try {
         querySQL({ variables: { sql } });
       } catch (e) {

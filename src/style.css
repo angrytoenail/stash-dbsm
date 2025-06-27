@@ -1,3 +1,12 @@
-body {
-    background-color: #222c3c;
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #202b33;
+    --color-secondary: #202233;
+    --color-tertiary: #3a4a59;
+    --color-stash-500: #3a4a59;
+    --color-stash-600: #2e3b47;
+    --color-stash-700: #232c35;
+    --color-stash-800: #171e24;
+    --color-stash-900: #0c0f12;
 }

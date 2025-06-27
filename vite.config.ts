@@ -1,7 +1,8 @@
+import tailwindcss from "@tailwindcss/vite";
 import { Buffer } from "node:buffer";
-import { resolve } from "node:path";
+import path from "node:path";
 import type { Plugin, TransformResult } from "vite";
-import { defineConfig, normalizePath } from "vite";
+import { defineConfig } from "vite";
 import stashConfigGenerator from "./helpers/rollup-plugin-stash-config-generator";
 
 function importSQLPlugin(): Plugin {
@@ -20,32 +21,53 @@ function importSQLPlugin(): Plugin {
 export default defineConfig({
   resolve: {
     alias: {
-      "@": normalizePath("./src"),
-      "@sql": normalizePath("./sql"),
+      "@": path.resolve("./src"),
+      "@sql": path.resolve("./sql"),
     },
   },
-  plugins: [importSQLPlugin(), stashConfigGenerator()],
+  plugins: [
+    tailwindcss(),
+    importSQLPlugin(),
+    stashConfigGenerator({ env: import.meta.env }),
+  ],
+  esbuild: { legalComments: "none" },
   build: {
+    minify: false,
+    modulePreload: { polyfill: false },
     assetsDir: ".",
+    lib: {
+      formats: ["umd"],
+      entry: ["./src/main.ts"],
+      name: "DBSM",
+      fileName: (format, entryName) => entryName.concat(".", format, ".js"),
+      cssFileName: "style",
+    },
     rollupOptions: {
-      external: ["api", "React", "Apollo", "GQL", "gql"],
+      jsx: {
+        mode: "automatic",
+      },
+      external: [
+        "react",
+        "react-dom",
+        "react-router-dom",
+        "react-bootstrap",
+        "@apollo/client",
+        "@fortawesome/react-fontawesome",
+        "@fortawesome/free-solid-svg-icons",
+      ],
       output: {
         globals: {
-          "window.PluginApi": "api",
-          "api.React": "React",
-          "api.Apollo": "Apollo",
-          "Apollo.gql": "gql",
-          "api.libraries.GQL": "GQL",
+          react: "PluginApi.React",
+          "react-dom": "PluginApi.ReactDOM",
+          "react-router-dom": "PluginApi.libraries.ReactRouterDOM",
+          "react-bootstrap": "PluginApi.libraries.Bootstrap",
+          "@apollo/client": "PluginApi.libraries.Apollo",
+          "@fortawesome/free-regular-svg-icons":
+            "PluginApi.libraries.FontAwesomeRegular",
+          "@fortawesome/free-solid-svg-icons":
+            "PluginApi.libraries.FontAwesomeSolid",
         },
       },
     },
-    lib: {
-      entry: resolve(__dirname, "src/main.ts"),
-      name: "DBSM",
-      formats: ["iife"],
-      fileName: (format, entryName) => entryName.concat(".js"),
-      cssFileName: "style",
-    },
-    minify: false,
   },
 });
