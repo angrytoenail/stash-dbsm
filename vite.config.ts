@@ -19,6 +19,9 @@ function importSQLPlugin(): Plugin {
 }
 
 export default defineConfig({
+  define: {
+    React: "PluginApi.React",
+  },
   resolve: {
     alias: {
       "@": path.resolve("./src"),
