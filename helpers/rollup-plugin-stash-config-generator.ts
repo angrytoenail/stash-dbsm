@@ -6,21 +6,23 @@ import type {
   OutputChunk,
   OutputOptions,
 } from "rollup";
-import { Plugin } from "vite";
+import type { Plugin } from "vite";
 import zipPack from "vite-plugin-zip-pack";
 import yaml from "yaml";
 
-export interface Options {
-  name?: string;
-  description?: string;
-  version?: string;
-  url?: string;
+export interface Options extends Record<string, any> {
+  config?: StashPluginConfig;
+  env?: any;
 }
 
 /**
  * @description A configuration object that adheres to the Stash plugin schema.
  */
-export interface StashPluginConfig extends Options {
+export interface StashPluginConfig {
+  name: string;
+  description: string;
+  version: string;
+  url: string;
   errLog?: "none" | "trace" | "debug" | "info" | "warning" | "error";
   interface?: "js" | "raw" | "rpc";
   exec?: string[];
@@ -63,7 +65,7 @@ export interface StashPluginConfig extends Options {
  *
  * @returns {Plugin} A Vite plugin object.
  */
-const plugin = (config?: StashPluginConfig): Plugin => {
+const plugin = (config: StashPluginConfig): Plugin => {
   return {
     name: "vite-plugin-stash-config-generator",
     enforce: "post",
@@ -106,7 +108,7 @@ const plugin = (config?: StashPluginConfig): Plugin => {
   };
 };
 
-export default function stashConfigGenerator(options?: Options) {
+export default function stashConfigGenerator(options: Options = {}) {
   function parsePackageJson(): StashPluginConfig {
     const packageJsonPath = path.join(process.cwd(), "package.json");
     const packageJsonContent = readFileSync(packageJsonPath, "utf8");
@@ -123,9 +125,18 @@ export default function stashConfigGenerator(options?: Options) {
     };
   }
   const defaultConfig = parsePackageJson();
-  const config = { ...defaultConfig, ...options };
-  return [
-    plugin(config),
-    zipPack({ outDir: "dist", outFileName: `${config.name}.zip` }),
-  ];
+  let config: StashPluginConfig;
+  if (options.config) {
+    config = { ...defaultConfig, ...options.config };
+  } else {
+    config = defaultConfig;
+  }
+  console.log(options.env);
+  if (options.env && options.env.PROD) {
+    return [
+      plugin(config),
+      zipPack({ outDir: "dist", outFileName: `${config.name}.zip` }),
+    ];
+  }
+  return plugin(config);
 }
