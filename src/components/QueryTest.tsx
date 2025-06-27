@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuerySQLMutation } from "@/client";
+import { useQuerySQLMutation } from "@/gql";
 import sql from "@sql/example.sql";
 
 PluginApi.patch.instead(
