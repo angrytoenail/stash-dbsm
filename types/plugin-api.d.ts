@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 declare namespace PluginApi {
   import type { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   const React: typeof import("react");
@@ -1579,12 +1577,25 @@ declare namespace PluginApi {
     };
   }
   export type ComponentNames = keyof typeof components | string;
+  export type BeforeFunction = (
+    props: PropsWithChildren,
+  ) => PropsWithChildren[];
+  export type InsteadFunction = (
+    props: PropsWithChildren,
+    _: unknown,
+    original: React.FC<any>,
+  ) => React.JSX.Element;
+  export type AfterFunction = (
+    props: PropsWithChildren,
+    _: unknown,
+    results: PropsWithChildren,
+  ) => React.JSX.Element;
   namespace patch {
-    function before(target: ComponentNames, fn: Function): void;
+    function before(target: ComponentNames, fn: BeforeFunction): void;
 
-    function instead(target: ComponentNames, fn: Function): void;
+    function instead(target: ComponentNames, fn: InsteadFunction): void;
 
-    function after(target: ComponentNames, fn: Function): void;
+    function after(target: ComponentNames, fn: AfterFunction): void;
   }
   namespace register {
     function route(path: string, component: React.FC<any>): void;

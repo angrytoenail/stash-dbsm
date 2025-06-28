@@ -1,20 +1,21 @@
 {
   "name": "stash-dbsm",
   "description": "Database SQL Manager",
+  "license": "AGPL-3.0-only",
+  "entry": "./dist/main.iife.js",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
   "author": {
     "name": "Angry Toenail",
     "url": "https://github.com/angrytoenail"
   },
-  "license": "AGPL-3.0-only",
-  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/angrytoenail/stash-dbsm.git"
-  },
-  "type": "module",
-  "scripts": {
-    "dev": "vite build --watch",
-    "build": "tsc && vite build"
   },
   "peerDependencies": {
     "@apollo/client": "^3.13.8",
@@ -22,24 +23,37 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.10.10",
     "react-dom": "^18.2.0",
+    "react-bootstrap": "^2.10.10",
     "react-router-dom": "^7.6.2"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.11",
+    "@eslint/js": "^9.29.0",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^24.0.3",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "prismjs": "^1.30.0",
-    "react-simple-code-editor": "^0.14.1",
+    "@types/node": "^24.0.4",
+    "@types/prismjs": "^1.26.5",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.5.2",
+    "eslint": "^9.29.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
     "rollup": "^4.44.1",
-    "tailwindcss": "^4.1.11",
     "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.1",
     "vite": "^7.0.0",
     "vite-plugin-zip-pack": "^1.2.4",
     "yaml": "^2.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@headlessui/react": "^2.2.4",
+    "@heroicons/react": "^2.2.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "tailwindcss": "^4.1.11",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.19.2",
+    "prismjs": "^1.30.0",
+    "react-simple-code-editor": "^0.14.1"
+  }
 }

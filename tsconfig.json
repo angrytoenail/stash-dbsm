@@ -1,34 +1,7 @@
 {
-  "compilerOptions": {
-    "jsx": "preserve",
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "paths": {
-      "@sql/": ["./sql/"],
-      "@/*": ["./src/*"]
-    },
-
-    /* Bundler mode */
-    "target": "ES6",
-    "module": "ES2020",
-    "moduleResolution": "bundler",
-    "moduleDetection": "force",
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "allowJs": true,
-    "allowUmdGlobalAccess": true,
-    "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
-    "useDefineForClassFields": true,
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
-
-    /* Linting */
-    "strict": true,
-    "skipLibCheck": true,
-    "noImplicitAny": false,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["src/**/*"]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }

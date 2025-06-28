@@ -3,10 +3,51 @@
 @theme {
     --color-primary: #202b33;
     --color-secondary: #202233;
-    --color-tertiary: #3a4a59;
-    --color-stash-500: #3a4a59;
+    --color-tertiary: #394b59;
+    --color-stash-500: #394b59;
     --color-stash-600: #2e3b47;
     --color-stash-700: #232c35;
     --color-stash-800: #171e24;
     --color-stash-900: #0c0f12;
+    --font-zed: "Zed Sans", monospace;
+}
+
+@layer components {
+    .editor {
+        @apply font-zed text-lg;
+        @apply bg-stash-800;
+        @apply shadow-md shadow-stash-800;
+        @apply rounded-md sm:rounded-lg;
+        &:focus-within {
+            @apply ring-1 ring-stash-500;
+        }
+    }
+}
+
+@font-face {
+    font-family: "Zed Sans";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/font/zed-sans-extended.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Zed Sans";
+    font-style: italic;
+    font-weight: normal;
+    src: url("/font/zed-sans-extendeditalic.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Zed Sans";
+    font-style: normal;
+    font-weight: bold;
+    src: url("/font/zed-sans-extendedbold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Zed Sans";
+    font-style: italic;
+    font-weight: bold;
+    src: url("/font/zed-sans-extendedbolditalic.ttf") format("truetype");
 }
