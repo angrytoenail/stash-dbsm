@@ -2,7 +2,6 @@
   "name": "stash-dbsm",
   "description": "Database SQL Manager",
   "license": "AGPL-3.0-only",
-  "entry": "./dist/main.iife.js",
   "version": "0.0.1",
   "type": "module",
   "scripts": {
@@ -35,6 +34,9 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.5.2",
+    "@apollo/client": "^3.13.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "eslint": "^9.29.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",

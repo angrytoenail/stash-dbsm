@@ -10,7 +10,6 @@ import type {
 import {
   defineConfig,
   type Plugin,
-  type PluginOption,
   type TransformResult,
   type UserConfig,
 } from "vite";
@@ -18,7 +17,7 @@ import zipPack from "vite-plugin-zip-pack";
 import yaml from "yaml";
 import pkg from "./package.json" with { type: "json" };
 
-const name = pkg.name;
+const pluginName = pkg.name;
 const outDir = "dist";
 
 function importSQLPlugin(): Plugin {
@@ -66,7 +65,7 @@ function stashConfigGenerator(): Plugin {
 
       this.emitFile({
         type: "asset",
-        fileName: `${name}.yml`,
+        fileName: `${pluginName}.yml`,
         source: yaml.stringify(pluginConfig),
       });
     },
@@ -74,23 +73,8 @@ function stashConfigGenerator(): Plugin {
 }
 
 export default defineConfig(({ mode }) => {
-  const plugins: PluginOption[] = [
-    tailwindcss(),
-    importSQLPlugin(),
-    stashConfigGenerator(),
-  ];
-  if (mode === "production") {
-    plugins.push(zipPack({ outDir, outFileName: `${name}.zip` }));
-  }
   const config: UserConfig = {
-    base: `/plugin/${name}/assets/`,
-    esbuild: { legalComments: "none" },
-    plugins,
-    define: {
-      React: "PluginApi.React",
-      "process.env": {},
-    },
-    publicDir: resolve(__dirname, "static"),
+    plugins: [tailwindcss(), importSQLPlugin(), stashConfigGenerator()],
     resolve: {
       alias: {
         "@": resolve("./src"),
@@ -98,43 +82,55 @@ export default defineConfig(({ mode }) => {
         "@static": resolve("./static"),
       },
     },
-    build: {
-      outDir,
-      lib: {
-        name: name.replace(/[^a-z]/, ""),
-        formats: ["iife"],
-        entry: [resolve(__dirname, "src/main.tsx")],
-        fileName: name,
+  };
+  if (mode === "production") {
+    config.plugins?.push(zipPack({ outDir, outFileName: `${pluginName}.zip` }));
+    return {
+      ...config,
+      define: {
+        React: "PluginApi.React",
+        "process.env": {},
       },
-      minify: mode === "production",
-      rollupOptions: {
-        jsx: {
-          mode: "automatic",
+      base: `/plugin/${pluginName}/assets/`,
+      esbuild: { legalComments: "none" },
+      build: {
+        minify: false,
+        // outDir,
+        lib: {
+          name: pluginName.replace(/[^a-z]/, ""),
+          formats: ["iife"],
+          entry: [resolve(__dirname, "src/main.tsx")],
+          fileName: pluginName,
         },
-        external: [
-          "react",
-          "react-dom",
-          "react-router-dom",
-          "react-bootstrap",
-          "@apollo/client",
-          "@fortawesome/react-fontawesome",
-          "@fortawesome/free-solid-svg-icons",
-        ],
-        output: {
-          globals: {
-            react: "PluginApi.React",
-            "react-dom": "PluginApi.ReactDOM",
-            "react-router-dom": "PluginApi.libraries.ReactRouterDOM",
-            "react-bootstrap": "PluginApi.libraries.Bootstrap",
-            "@apollo/client": "PluginApi.libraries.Apollo",
-            "@fortawesome/free-regular-svg-icons":
-              "PluginApi.libraries.FontAwesomeRegular",
-            "@fortawesome/free-solid-svg-icons":
-              "PluginApi.libraries.FontAwesomeSolid",
+        rollupOptions: {
+          jsx: {
+            mode: "automatic",
+          },
+          external: [
+            "react",
+            "react-dom",
+            "react-router-dom",
+            "react-bootstrap",
+            "@apollo/client",
+            "@fortawesome/react-fontawesome",
+            "@fortawesome/free-solid-svg-icons",
+          ],
+          output: {
+            globals: {
+              react: "PluginApi.React",
+              "react-dom": "PluginApi.ReactDOM",
+              "react-router-dom": "PluginApi.libraries.ReactRouterDOM",
+              "react-bootstrap": "PluginApi.libraries.Bootstrap",
+              "@apollo/client": "PluginApi.libraries.Apollo",
+              "@fortawesome/free-regular-svg-icons":
+                "PluginApi.libraries.FontAwesomeRegular",
+              "@fortawesome/free-solid-svg-icons":
+                "PluginApi.libraries.FontAwesomeSolid",
+            },
           },
         },
       },
-    },
-  };
+    };
+  }
   return config;
 });

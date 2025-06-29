@@ -2,16 +2,30 @@ import React from "react";
 import sql from "@sql/example.sql";
 import { useQuerySQLMutation } from "@/gql";
 
-import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs";
 import "prismjs/components/prism-sql";
 import "prismjs/themes/prism-tomorrow.css";
 
 import { Button } from "@/components/ui/button";
+import { Heading } from "@/components/ui/heading";
 import { PlusIcon } from "@heroicons/react/16/solid";
+import { Field, Label, ErrorMessage } from "@/components/ui/fieldset";
+import { Textarea } from "@/components/ui/textarea";
+import { SQLEditor } from "@/components/ui/editor";
+import { Divider } from "@/components/ui/divider";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+const LoadingIndicator = () => <div>LOADING...</div>;
 
 export default () => {
-  const { LoadingIndicator } = PluginApi.components;
+  // const { LoadingIndicator } = PluginApi.components;
   const [code, setCode] = React.useState(sql);
   const [columns, setColumns] = React.useState<string[]>([]);
   const [rows, setRows] = React.useState<any[][]>([]);
@@ -39,28 +53,33 @@ export default () => {
     }
   };
 
-  function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(" ");
-  }
-
   return (
     <div className="px-4 sm:px-6 lg:px-8 mb-16">
-      <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold text-gray-50">
-            Database SQL Manager
-          </h1>
-        </div>
-        <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-2/3">
-          <Editor
-            value={code}
-            onValueChange={(code) => setCode(code)}
-            highlight={(code) => highlight(code, languages.sql, "sql")}
-            padding={10}
-            className="editor"
-          />
+      <div className="mb-4 flex w-full flex-wrap items-baseline justify-between gap-4 border-b border-zinc-950/10 pb-6 dark:border-white/10">
+        <Heading>Database SQL Manager</Heading>
+        <div className="flex gap-4">
+          <Button>Refund</Button>
+          <Button>Resend invoice</Button>
         </div>
       </div>
+      <Field>
+        <Label>Description</Label>
+        <Textarea
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          name="description"
+        />
+      </Field>
+      <Divider className="my-6" />
+      <Field>
+        <Label>Description</Label>
+        <SQLEditor
+          value={code}
+          onValueChange={(code) => setCode(code)}
+          highlight={(code) => highlight(code, languages.sql, "sql")}
+        />
+        {error && <ErrorMessage>{error.message}</ErrorMessage>}
+      </Field>
 
       <div className="flex justify-end mt-4">
         <Button onClick={submitQuery} disabled={loading}>
@@ -69,66 +88,37 @@ export default () => {
         </Button>
       </div>
 
-      {error && (
-        <div className="my-4 p-4 bg-red-800/20 ring-1 ring-red-500 rounded-lg text-red-300">
-          <h3 className="font-bold">Error</h3>
-          <pre className="whitespace-pre-wrap">{error.message}</pre>
+      {rows.length > 0 && (
+        <div>
+          {loading && (
+            <div className="absolute inset-0 bg-stash-800/50 flex items-center justify-center rounded-lg">
+              <LoadingIndicator />
+            </div>
+          )}
+          <Table bleed striped>
+            <TableHead>
+              <TableRow>
+                <TableHeader>#</TableHeader>
+                {columns.map((colName) => (
+                  <TableHeader>{colName}</TableHeader>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, rowIdx) => (
+                <TableRow key={rowIdx}>
+                  <TableCell>{rowIdx + 1}</TableCell>
+                  {row.map((val, valIdx) => (
+                    <TableCell key={valIdx}>
+                      <div className="font-medium">{String(val)}</div>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
       )}
-
-      <div className="relative -mx-4 mt-10 ring-1 ring-stash-700 sm:mx-0 sm:rounded-lg text-lg text-gray-50 bg-stash-600 shadow-lg shadow-stash-900">
-        {loading && (
-          <div className="absolute inset-0 bg-stash-800/50 flex items-center justify-center rounded-lg">
-            <LoadingIndicator />
-          </div>
-        )}
-        {rows.length > 0 && (
-          <table className="min-w-full divide-y divide-stash-700">
-            <thead>
-              <tr>
-                <th
-                  scope="col"
-                  className="relative align-middle px-7 sm:w-12 sm:px-6 bg-stash-700"
-                >
-                  #
-                </th>
-                {columns.map((colName, index) => (
-                  <th
-                    scope="col"
-                    key={index}
-                    className="hidden align-middle px-3 py-2 text-left text-lg font-semibold lg:table-cell bg-stash-700"
-                  >
-                    {colName}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row, rowIdx) => (
-                <tr key={rowIdx}>
-                  <th
-                    scope="row"
-                    className="py-2.5 text-center text-sm text-bold align-top"
-                  >
-                    {rowIdx + 1}
-                  </th>
-                  {row.map((val, valIdx) => (
-                    <td
-                      key={valIdx}
-                      className={classNames(
-                        rowIdx === 0 ? "" : "border-t border-transparent",
-                        "relative py-2.5 pr-3 pl-4 text-sm sm:pl-6 align-top",
-                      )}
-                    >
-                      <div className="font-medium">{String(val)}</div>
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
     </div>
   );
 };
