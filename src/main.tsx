@@ -1,13 +1,13 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import FrontPage from "@/components/FrontPage.tsx";
 import PluginNavLink from "@/components/MainNavBar.tsx";
 import PluginHome from "@/components/PluginHome.tsx";
+import NavBar from "@/components/NavBar.tsx";
 import "./style.css";
 
 if (import.meta.env.PROD) {
-  PluginApi.React.useId = () => crypto.randomUUID();
   PluginApi.register.route("/dbsm", PluginHome);
   PluginApi.patch.instead("FrontPage", FrontPage);
   PluginApi.patch.before("MainNavBar.UtilityItems", (props) => [
@@ -25,10 +25,11 @@ if (import.meta.env.PROD) {
     uri: import.meta.env.VITE_GRAPHQL_URI,
     cache: new InMemoryCache(),
   });
-  const root = createRoot(document.getElementById("root")!);
-  root.render(
+  ReactDOM.render(
     <ApolloProvider client={client}>
+      <NavBar />
       <PluginHome />
     </ApolloProvider>,
+    document.getElementById("plugin")!,
   );
 }
