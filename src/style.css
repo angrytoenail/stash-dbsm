@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant data-open (&[data-headlessui-state~="open"]);
+
 @theme {
     --font-zed: "Zed Sans", monospace;
     --color-stash-light: oklch(40.15% 0.033 246.96);
@@ -15,6 +17,16 @@
     --color-stash-800: oklch(23.33% 0.017 237.67);
     --color-stash-900: oklch(18.74% 0.014 243.71);
     --color-stash-950: oklch(15.01% 0.011 233.12);
+    --color-token-keyword: #cc71dd;
+    --color-token-string: #7ec699;
+    --color-token-operator: #67cdcc;
+    --color-token-inserted: green;
+    --color-token-property: #f8c555;
+    --color-token-number: #f08d49;
+    --color-token-comment: #999;
+    --color-token-punctuation: #ccc;
+    --color-token-tag: #f08d49;
+    --color-token-function-name: #6196cc;
 }
 
 @layer components {

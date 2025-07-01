@@ -1,6 +1,5 @@
-select
-  *
-from
+SELECT *
+FROM
   sqlite_master
-limit
+LIMIT
   10;

@@ -60,6 +60,11 @@ export const styles = {
       "dark:text-white dark:[--btn-bg:var(--color-zinc-600)] dark:[--btn-hover-overlay:var(--color-white)]/5",
       "[--btn-icon:var(--color-zinc-400)] data-active:[--btn-icon:var(--color-zinc-300)] data-hover:[--btn-icon:var(--color-zinc-300)]",
     ],
+    "dark/stash": [
+      "text-white [--btn-bg:var(--color-stash-900)] [--btn-border:var(--color-stash-950)]/90 [--btn-hover-overlay:var(--color-white)]/10",
+      "dark:text-white dark:[--btn-bg:var(--color-stash-600)] dark:[--btn-hover-overlay:var(--color-white)]/5",
+      "[--btn-icon:var(--color-stash-100)] data-active:[--btn-icon:var(--color-stash-300)] data-hover:[--btn-icon:var(--color-stash-300)]",
+    ],
     light: [
       "text-zinc-950 [--btn-bg:white] [--btn-border:var(--color-zinc-950)]/10 [--btn-hover-overlay:var(--color-zinc-950)]/2.5 data-active:[--btn-border:var(--color-zinc-950)]/15 data-hover:[--btn-border:var(--color-zinc-950)]/15",
       "dark:text-white dark:[--btn-hover-overlay:var(--color-white)]/5 dark:[--btn-bg:var(--color-zinc-800)]",
@@ -180,7 +185,7 @@ export const Button = forwardRef(
       // @ts-ignore
       <button
         type="button"
-        className={clsx(classes, "cursor-default")}
+        className={clsx(classes, "cursor-pointer")}
         {...props}
         ref={ref}
       >

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import FrontPage from "@/components/FrontPage.tsx";
 import PluginNavLink from "@/components/MainNavBar.tsx";
-import PluginHome from "@/components/PluginHome.tsx";
+import PluginHome from "@/components/PluginPage";
 import NavBar from "@/components/NavBar.tsx";
 import "./style.css";
 
