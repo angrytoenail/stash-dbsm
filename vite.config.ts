@@ -1,4 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
 import { Buffer } from "node:buffer";
 import { resolve } from "node:path";
 import type {
@@ -10,6 +11,7 @@ import type {
 import {
   defineConfig,
   type Plugin,
+  type PluginOption,
   type TransformResult,
   type UserConfig,
 } from "vite";
@@ -73,8 +75,13 @@ function stashConfigGenerator(): Plugin {
 }
 
 export default defineConfig(({ mode }) => {
+  const plugins: PluginOption[] = [
+    tailwindcss(),
+    importSQLPlugin(),
+    stashConfigGenerator(),
+  ];
   const config: UserConfig = {
-    plugins: [tailwindcss(), importSQLPlugin(), stashConfigGenerator()],
+    plugins: [react(), ...plugins],
     resolve: {
       alias: {
         "@": resolve("./src"),
@@ -84,9 +91,12 @@ export default defineConfig(({ mode }) => {
     },
   };
   if (mode === "production") {
-    config.plugins?.push(zipPack({ outDir, outFileName: `${pluginName}.zip` }));
     return {
       ...config,
+      plugins: [
+        ...plugins,
+        zipPack({ outDir, outFileName: `${pluginName}.zip` }),
+      ],
       define: {
         React: "PluginApi.React",
         "process.env": {},

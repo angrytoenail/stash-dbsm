@@ -1,15 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: #202b33;
-    --color-secondary: #202233;
-    --color-tertiary: #394b59;
-    --color-stash-500: #394b59;
-    --color-stash-600: #2e3b47;
-    --color-stash-700: #232c35;
-    --color-stash-800: #171e24;
-    --color-stash-900: #0c0f12;
     --font-zed: "Zed Sans", monospace;
+    --color-stash-light: oklch(40.15% 0.033 246.96);
+    --color-stash-dark: oklch(28.23% 0.021 240.04);
+    --color-stash-50: oklch(99.06% 0.002 247.73);
+    --color-stash-100: oklch(92.96% 0.015 244.7);
+    --color-stash-200: oklch(82.61% 0.04 241.12);
+    --color-stash-300: oklch(71.44% 0.053 239.54);
+    --color-stash-400: oklch(60.94% 0.045 240.87);
+    --color-stash-500: oklch(49.85% 0.037 240.02);
+    --color-stash-600: oklch(38.52% 0.029 240.88);
+    --color-stash-700: oklch(28.23% 0.021 240.04);
+    --color-stash-800: oklch(23.33% 0.017 237.67);
+    --color-stash-900: oklch(18.74% 0.014 243.71);
+    --color-stash-950: oklch(15.01% 0.011 233.12);
 }
 
 @layer components {
