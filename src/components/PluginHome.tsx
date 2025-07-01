@@ -2,17 +2,9 @@ import React from "react";
 import sql from "@sql/example.sql";
 import { useQuerySQLMutation } from "@/gql";
 
-import { highlight, languages } from "prismjs";
-import "prismjs/components/prism-sql";
-import "prismjs/themes/prism-tomorrow.css";
-
-import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { PlusIcon } from "@heroicons/react/16/solid";
-import { Field, Label, ErrorMessage } from "@/components/ui/fieldset";
-import { Textarea } from "@/components/ui/textarea";
 import { SQLEditor } from "@/components/ui/editor";
-import { Divider } from "@/components/ui/divider";
 import {
   Table,
   TableBody,
@@ -21,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 
 const LoadingIndicator = () => <div>LOADING...</div>;
 
@@ -54,36 +47,21 @@ export default () => {
   };
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 mb-16">
-      <div className="mb-4 flex w-full flex-wrap items-baseline justify-between gap-4 border-b border-zinc-950/10 pb-6 dark:border-white/10">
+    <div className="px-4 sm:px-6 lg:px-8 mt-4 mb-16">
+      <div className="mb-4 flex w-full flex-wrap items-baseline justify-between gap-4">
         <Heading>Database SQL Manager</Heading>
-        <div className="flex gap-4">
-          <Button>Refund</Button>
-          <Button>Resend invoice</Button>
-        </div>
       </div>
-      <Field>
-        <Label>Description</Label>
-        <Textarea
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          name="description"
-        />
-      </Field>
-      <Divider className="my-6" />
-      <Field>
-        <Label>Description</Label>
-        <SQLEditor
-          value={code}
-          onValueChange={(code) => setCode(code)}
-          highlight={(code) => highlight(code, languages.sql, "sql")}
-        />
-        {error && <ErrorMessage>{error.message}</ErrorMessage>}
-      </Field>
+      <div>
+        <label htmlFor="title" className="sr-only">
+          SQL Query
+        </label>
+        <SQLEditor value={code} onValueChange={(code) => setCode(code)} />
+        {error && <div className="text-red-600">{error.message}</div>}
+      </div>
 
       <div className="flex justify-end mt-4">
         <Button onClick={submitQuery} disabled={loading}>
-          <PlusIcon />
+          <PlusIcon aria-hidden="true" className="-ml-0.5 size-5" />
           {loading ? "Running..." : "Submit Query"}
         </Button>
       </div>
@@ -98,19 +76,23 @@ export default () => {
           <Table bleed striped>
             <TableHead>
               <TableRow>
-                <TableHeader>#</TableHeader>
-                {columns.map((colName) => (
-                  <TableHeader>{colName}</TableHeader>
+                <TableHeader className="font-medium text-center">#</TableHeader>
+                {columns.map((colName, colNum) => (
+                  <TableHeader className="font-medium" key={colNum}>
+                    {colName}
+                  </TableHeader>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row, rowIdx) => (
                 <TableRow key={rowIdx}>
-                  <TableCell>{rowIdx + 1}</TableCell>
+                  <TableCell className="font-medium text-center">
+                    {rowIdx + 1}
+                  </TableCell>
                   {row.map((val, valIdx) => (
                     <TableCell key={valIdx}>
-                      <div className="font-medium">{String(val)}</div>
+                      <div className="text-wrap">{String(val)}</div>
                     </TableCell>
                   ))}
                 </TableRow>
